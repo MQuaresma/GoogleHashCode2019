@@ -37,20 +37,34 @@ def maximize_interest(slideshow, images):
             slideshow[i+1] = prev
     return slideshow
 
+def findV(images, ind):
+    min = 1000
+    i_min = -1
+    for i in range(0, len(images)):
+        if images[i][0] == 'V':
+            intersect_value = len(list(set(images[ind][1]) & set(images[i][1])))
+            if intersect_value == 0:
+                i_min = i
+                break  
+            if intersect_value < min: 
+                min = intersect_value
+                i_min = i
+
+    return i_min
 
 def createSlideShow(images):
     slideshow = []
-    lastV = -1
     
     for i in range(0, len(images)):
         if images[i][0] == 'H':
             slideshow.append([[i], images[i][1]])
-        else:
-            if lastV != -1:
-                slideshow.append([[lastV, i], list(set(images[lastV][1] + images[i][1]))])
-                lastV = -1
-            else:
-                lastV = i
+        elif images[i][0] == 'V':
+            images[i][0] = 'N'
+            v = findV(images,i)
+            if v != -1:
+                images[v][0] = 'N'
+                slideshow.append([[v, i], list(set(images[v][1] + images[i][1]))])
+                
     return slideshow
 
 
