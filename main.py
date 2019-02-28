@@ -32,8 +32,9 @@ def maximize_interest(slideshow, images):
         before_in = interest(images[prev][1], images[c][1]) + interest(images[nxt][1], images[nxt_nxt][1])
         after_in = interest(images[prev][1], images[nxt][1]) + interest(images[c][1], images[nxt_nxt][1])
         if (after_in - before_in)>0:
-            slideshow[i][0] = nxt
-            slideshow[i+1][0] = c
+            prev = slideshow[i]
+            slideshow[i] = slideshow[i+1]
+            slideshow[i+1] = prev
     return slideshow
 
 
