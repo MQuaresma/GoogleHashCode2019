@@ -1,5 +1,27 @@
+#!/usr/bin/env python3
+
 import fileinput
 import re
+
+def interest(tags1, tags2):
+    commons = 0
+    s1 = 0
+    s2 = 0
+
+    for t1 in tags1:
+        flag = False
+        s1 += 1
+        for t2 in tags2:
+            if t1==t2:
+                flag = True
+                break
+        if flag:
+            commons += 1
+
+    s1 -= commons
+    s2 = len(tags2) - commons
+
+    return min([s1,s2,commons])
 
 def maximize_interest(slideshow, images):
     for i in range(1, len(slideshow)-2):
@@ -15,7 +37,7 @@ def maximize_interest(slideshow, images):
     return slideshow
 
 
-def createSlideShow(images):
+def createSlideShow():
     slideshow = []
     lastV = -1
     
