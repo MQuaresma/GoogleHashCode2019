@@ -29,23 +29,24 @@ def maximize_interest(slideshow, images):
     T=1
     if len(slideshow)>3:
         j=0
-        while j<1000:
-            for i in range(1, len(slideshow)-2):
-                prev = slideshow[i-1][1]
-                c = slideshow[i][1]
-                nxt = slideshow[i+1][1]
-                nxt_nxt = slideshow[i+2][1]
-                before_in = interest(prev, c) + interest(nxt, nxt_nxt)
-                after_in = interest(prev, nxt) + interest(c, nxt_nxt)
-                delta = after_in - before_in
-                if delta>0 or exp(delta/T) >= uniform(0,1):
-                    prev = slideshow[i]
-                    slideshow[i] = slideshow[i+1]
-                    slideshow[i+1] = prev
-                    if delta != 0:
-                        j=0
-                else:
-                    j += 1
+        while j<10000:
+            i = randint(1, len(slideshow)-3)
+            #for i in range(1, len(slideshow)-2):
+            prev = slideshow[i-1][1]
+            c = slideshow[i][1]
+            nxt = slideshow[i+1][1]
+            nxt_nxt = slideshow[i+2][1]
+            before_in = interest(prev, c) + interest(nxt, nxt_nxt)
+            after_in = interest(prev, nxt) + interest(c, nxt_nxt)
+            delta = after_in - before_in
+            if (delta>0) or (T>= 0.000001 and exp(delta/T)>=uniform(0,1)):
+                prev = slideshow[i]
+                slideshow[i] = slideshow[i+1]
+                slideshow[i+1] = prev
+                if delta != 0:
+                    j=0
+            else:
+                j += 1
             T = 0.999*T
     return slideshow
 
