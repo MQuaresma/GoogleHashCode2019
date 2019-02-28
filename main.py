@@ -25,12 +25,12 @@ def interest(tags1, tags2):
 
 def maximize_interest(slideshow, images):
     for i in range(1, len(slideshow)-2):
-        prev = slideshow[i-1][0]
-        c = slideshow[i][0]
-        nxt = slideshow[i+1][0]
-        nxt_nxt = slideshow[i+2][0]
-        before_in = interest(images[prev][1], images[c][1]) + interest(images[nxt][1], images[nxt_nxt][1])
-        after_in = interest(images[prev][1], images[nxt][1]) + interest(images[c][1], images[nxt_nxt][1])
+        prev = slideshow[i-1][1]
+        c = slideshow[i][1]
+        nxt = slideshow[i+1][1]
+        nxt_nxt = slideshow[i+2][1]
+        before_in = interest(prev, c) + interest(nxt, nxt_nxt)
+        after_in = interest(prev, nxt) + interest(c, nxt_nxt)
         if (after_in - before_in)>0:
             prev = slideshow[i]
             slideshow[i] = slideshow[i+1]
@@ -44,10 +44,10 @@ def createSlideShow(images):
     
     for i in range(0, len(images)):
         if images[i][0] == 'H':
-            slideshow.append([i])
+            slideshow.append([[i], images[i][1]])
         else:
             if lastV != -1:
-                slideshow.append([lastV, i])
+                slideshow.append([[lastV, i], list(set(images[lastV][1] + images[i][1]))])
                 lastV = -1
             else:
                 lastV = i
@@ -55,7 +55,7 @@ def createSlideShow(images):
 
 
 def write_slideshow(slideshow):
-    slideshow_s = [' '.join([str(img) for img in imgs]) for imgs in slideshow]
+    slideshow_s = [' '.join([str(img) for img in imgs[0]]) for imgs in slideshow]
     print(str(len(slideshow_s)) + '\n' + '\n'.join(slideshow_s))
 
 
