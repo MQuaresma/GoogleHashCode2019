@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from random import randint
 import fileinput
 import re
 
@@ -24,19 +25,25 @@ def interest(tags1, tags2):
     return min([s1,s2,commons])
 
 def maximize_interest(slideshow, images):
-    for i in range(1, len(slideshow)-2):
-        prev = slideshow[i-1][1]
-        c = slideshow[i][1]
-        nxt = slideshow[i+1][1]
-        nxt_nxt = slideshow[i+2][1]
-        before_in = interest(prev, c) + interest(nxt, nxt_nxt)
-        after_in = interest(prev, nxt) + interest(c, nxt_nxt)
-        if (after_in - before_in)>0:
-            prev = slideshow[i]
-            slideshow[i] = slideshow[i+1]
-            slideshow[i+1] = prev
+    if len(slideshow)>3:
+        j=0
+        while j<1000:
+            #i = randint(1,len(slideshow)-3)
+            for i in range(1, len(slideshow)-2):
+                prev = slideshow[i-1][1]
+                c = slideshow[i][1]
+                nxt = slideshow[i+1][1]
+                nxt_nxt = slideshow[i+2][1]
+                before_in = interest(prev, c) + interest(nxt, nxt_nxt)
+                after_in = interest(prev, nxt) + interest(c, nxt_nxt)
+                if (after_in - before_in)>0:
+                    prev = slideshow[i]
+                    slideshow[i] = slideshow[i+1]
+                    slideshow[i+1] = prev
+                    j=0
+                else:
+                    j += 1
     return slideshow
-
 
 def createSlideShow(images):
     slideshow = []
