@@ -32,12 +32,12 @@ def maximize_interest(slideshow, images):
         before_in = interest(images[prev][1], images[c][1]) + interest(images[nxt][1], images[nxt_nxt][1])
         after_in = interest(images[prev][1], images[nxt][1]) + interest(images[c][1], images[nxt_nxt][1])
         if (after_in - before_in)>0:
-            slideshow[i] = nxt
-            slideshow[i+1] = c
+            slideshow[i][0] = nxt
+            slideshow[i+1][0] = c
     return slideshow
 
 
-def createSlideShow():
+def createSlideShow(images):
     slideshow = []
     lastV = -1
     
@@ -50,7 +50,6 @@ def createSlideShow():
                 lastV = -1
             else:
                 lastV = i
-    
     return slideshow
 
 
@@ -64,7 +63,7 @@ def read_imgs():
 
     for line in fileinput.input():
         params = re.split(r'\s+', line)
-        images.append((params[0],params[2:-1]))
+        images.append([params[0],params[2:-1]])
 
     images = images[1:]
     return images
