@@ -31,4 +31,35 @@
     \today
 \end{titlepage}
 
+\section{Introduction}
+
+Google Hash Code is a yearly global event organized by Google that aims to challenge teams to solve a problem by combining problem solving 
+skills and programming. 
+This report presents the approach taken by the \textbf{0x4a4a4d53} team, explaining the thought process behind the solution presented by the
+team as well as possible alternative approaches that could have resulted in a better overall score.
+The write-up will also present the computational as well as time memory complexity of the algorithms presented which might help understand
+the attained performance.
+
+\section{The Problem}
+The problem presented by Google in 2019 consisted of, given a set of photos with the following attributes:
+\begin{itemize}
+    \item \textbf{Orientation}: Vertical (V) or Horizontal(H)
+    \item \textbf{Tags}: words that described/categorized a given photo
+\end{itemize}
+
+build a slideshow (\textbf{i.e.} sequence of slides where each slide could contain one horizontal photo or two vertical ones) sorting the
+slides in a way that maximized the "Interest Score" of said slideshow.
+
+\subsection{Input file format}
+The datasets to be processed consisted of text files where the first line listed the number of photos contained in the file and each subsequent
+line contained a single photo's attributes separated by one (or more) spaces.
+The first field indicated the orientation of the photo (\textbf{H} or \textbf{V}), followed by the number of tags that described the photos, these 
+tags were listed from the third field on. Each photo also had a unique ID i where ith photos was in line i.
+
+\subsection{Output file format}
+The solution for the problem consisted of a file describing the slideshow, where the first line indicated the number of slides and the following lines
+represented each individual slide containing the ID of the photo's in the respective slide.
+In the cases where a slide contained two vertical photos, two photo ID's were present.
+
+
 \end{document}
